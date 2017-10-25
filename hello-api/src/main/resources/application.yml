@@ -1,0 +1,8 @@
+server:
+  port: 8082
+logging:
+  path: ./hello-api/log
+spring:
+  zipkin:
+    base-url: http://localhost:8080
+
