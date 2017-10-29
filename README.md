@@ -11,10 +11,13 @@
  
 ### configure trace client(for both hello-api and user-api):
  1. add dependency: compile('org.springframework.cloud:spring-cloud-starter-sleuth')
- 2. add log for http request(slf4j)
- 3. start application check log
- 4. add dependency:compile('org.springframework.cloud:spring-cloud-starter-zipkin')
- 5. add sampler
+ 2. implement the resttemplate call from hello-api to user api
+ 3. add log for http request(slf4j)
+ 4. start application check log
+ 5. add dependency:compile('org.springframework.cloud:spring-cloud-starter-zipkin')
+ 6. check [zipkin dashboard](http://localhost:${port}/zipkin)
+ 6. add sampler
+ 7. check [zipkin dashboard](http://localhost:${port}/zipkin)
  
 ## log monitoring
 
