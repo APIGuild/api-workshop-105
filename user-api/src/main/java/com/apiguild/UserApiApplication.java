@@ -8,11 +8,17 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 public class UserApiApplication {
-	@Bean
-	public AlwaysSampler defaultSampler(){
-		return new AlwaysSampler();
-	}
-	public static void main(String[] args) {
-		SpringApplication.run(UserApiApplication.class, args);
-	}
+    @Bean
+    public AlwaysSampler defaultSampler() {
+        return new AlwaysSampler();
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(UserApiApplication.class, args);
+    }
 }
