@@ -4,6 +4,6 @@ spring:
   application:
     name: userinfo-service
 server:
-  port: 8083
+  port: 8084
 logging:
   path: info-api/log

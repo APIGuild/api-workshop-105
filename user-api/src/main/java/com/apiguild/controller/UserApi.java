@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
  */
 @RestController
 public class UserApi {
-    private final static String url = "http://localhost:8083/userinfo";
+    private final static String url = "http://localhost:8084/userinfo";
     Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     RestTemplate restTemplate;

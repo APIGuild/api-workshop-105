@@ -30,8 +30,10 @@ ext {
 dependencies {
 	compile('io.zipkin.java:zipkin-server')
 	runtime('io.zipkin.java:zipkin-autoconfigure-ui')
-
+	compile group: 'io.zipkin.java', name: 'zipkin-autoconfigure-storage-mysql', version: '2.2.1'
+	compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.13'
 	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-jdbc')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
