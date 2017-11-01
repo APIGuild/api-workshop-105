@@ -33,6 +33,7 @@
 ### configure log
  1. add log output file
  2. start application, check if log file is generated
+ 3. add log appender to generate log(logback.xml)
  
 ### configure splunk forwarder
  1. Configure Forwarder connection to Index Server: ./splunk add forward-server hostname.domain:9997
