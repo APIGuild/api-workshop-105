@@ -19,12 +19,21 @@
  6. add sampler
  7. check [zipkin dashboard](http://localhost:${port}/zipkin)
  
+### persistent the trace information(optional)
+ 1. add dependency: compile group: 'io.zipkin.java', name: 'zipkin-autoconfigure-storage-mysql', version: '2.2.1'
+    add dependency: compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.13'
+    add dependency: compile('org.springframework.boot:spring-boot-starter-jdbc')
+ 2. we choose to use mysql as dbms, create related database;
+ 3. add spring datasource configuration.(schema/username/password/url/driver-class-name...)
+ 4. check the database
+ 
 ## log monitoring
 
 ### steps
 ### configure log
  1. add log output file
  2. start application, check if log file is generated
+ 3. add log appender to generate log(logback.xml)
  
 ### configure splunk forwarder
  1. Configure Forwarder connection to Index Server: ./splunk add forward-server hostname.domain:9997
