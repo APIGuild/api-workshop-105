@@ -1,9 +1,0 @@
-spring:
-  zipkin:
-    base-url: http://localhost:8080
-  application:
-    name: userinfo-service
-server:
-  port: 8084
-logging:
-  path: info-api/log
