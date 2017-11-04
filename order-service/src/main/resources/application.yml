@@ -1,0 +1,56 @@
+server:
+  port: 8080
+  context-path: /order-service
+
+management:
+  security:
+    enabled: false
+endpoints:
+  health:
+    sensitive: false
+
+info:
+  app:
+    name: Order Service
+    protocol: http
+    description: This is the Order Service demo. GitHub: https://github.com/APIGuild/api-workshop-104
+  version: 1.0.0
+  contact:
+    author: API Guild
+    email: ***-api-guild@thoughtworks.com
+
+spring:
+  application:
+    name: order-service
+  zipkin:
+    base-url: http://localhost:9411
+logging:
+  path: ./build/log
+
+user:
+  service:
+    name: UserService
+    baseUrl: http://localhost:8081/user-service
+    username: apiuser
+    password: password
+    poolSize: 20
+    timeout: 5000
+
+logistics:
+  service:
+    name: LogisticsService
+    baseUrl: http://localhost:8082/logistics-service
+    username: apiuser
+    password: password
+    poolSize: 20
+    timeout: 5000
+
+product:
+  service:
+    name: ProductService
+    baseUrl: http://localhost:8083/product-service
+    username: apiuser
+    password: password
+    poolSize: 20
+    timeout: 5000
+
