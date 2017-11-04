@@ -1,28 +1,31 @@
 package com.guild.api.demo.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+import com.guild.api.demo.dao.exception.DaoException;
+import com.guild.api.demo.dao.exception.DaoExceptionBuilder;
 import com.guild.api.demo.model.LogisticsModel;
+import com.guild.api.demo.util.rest.RestTemplateExecutor;
 
 @Component
 public class LogisticsDao {
     private static final String RETRIEVE_LOGISTICS_URL = "{baseUrl}/logistics/{logisticsId}";
+    private static final String RETRIEVE_LOGISTICS_KEY = "retrieveLogistics";
 
     @Autowired
-    private RestTemplate restTemplate;
+    @Qualifier("logisticsServiceTemplate")
+    private RestTemplateExecutor restTemplateExecutor;
 
-    @Value("${logistics.service.baseUrl}")
-    private String baseUrl;
-
-    public LogisticsModel getLogistics(String logisticsId) {
-        String url = UriComponentsBuilder
-                .fromPath(RETRIEVE_LOGISTICS_URL)
-                .buildAndExpand(baseUrl, logisticsId)
-                .toString();
-        String logisticsInfo = restTemplate.getForEntity(url, String.class).getBody();
-        return new LogisticsModel(logisticsId, logisticsInfo);
+    public LogisticsModel getLogistics(String logisticsId) throws DaoException {
+        String url = UriComponentsBuilder.fromPath(RETRIEVE_LOGISTICS_URL)
+                .buildAndExpand(restTemplateExecutor.getEndpointProperties().getBaseUrl(), logisticsId).toString();
+        try {
+            String logisticsInfo = restTemplateExecutor.getForEntity(RETRIEVE_LOGISTICS_KEY, url, String.class);
+            return new LogisticsModel(logisticsId, logisticsInfo);
+        } catch (Exception exception) {
+            throw new DaoExceptionBuilder(url).build(exception);
+        }
     }
 }

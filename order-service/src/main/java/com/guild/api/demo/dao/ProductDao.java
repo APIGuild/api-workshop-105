@@ -12,6 +12,7 @@ import com.guild.api.demo.util.rest.RestTemplateExecutor;
 @Component
 public class ProductDao {
     private static final String RETRIEVE_PRODUCT_URL = "{baseUrl}/products/{productId}";
+    private static final String RETRIEVE_PRODUCT_KEY = "retrieveProduct";
 
     @Autowired
     @Qualifier("productServiceTemplate")
@@ -21,9 +22,7 @@ public class ProductDao {
         String url = UriComponentsBuilder.fromPath(RETRIEVE_PRODUCT_URL)
                 .buildAndExpand(restTemplateExecutor.getEndpointProperties().getBaseUrl(), productId).toString();
         try {
-            String productInfo = restTemplateExecutor
-                    .execute("retrieveProduct", restTemplate -> restTemplate.getForEntity(url, String.class))
-                    .getBody();
+            String productInfo = restTemplateExecutor.getForEntity(RETRIEVE_PRODUCT_KEY, url, String.class);
             return new ProductModel(productId, productInfo);
         } catch (Exception exception) {
             throw new DaoExceptionBuilder(url).build(exception);

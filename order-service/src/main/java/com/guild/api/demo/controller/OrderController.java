@@ -40,9 +40,6 @@ public class OrderController {
     private OrderService orderService;
 
     @Autowired
-    private OrderService orderServiceDemo;
-
-    @Autowired
     private OrderTranslator orderTranslator;
 
     @GetMapping(value = "/orders/{orderId}", produces = CONTENT_TYPE)
@@ -59,22 +56,6 @@ public class OrderController {
                                                    @Size(min = ORDER_ID_MIN_LENGTH, max = ORDER_ID_MAX_LENGTH, message = ORDER_ID_LENGTH_MESSAGE)
                                                    @PathVariable String orderId) {
         return orderTranslator.translate(orderService.getOrder(orderId));
-    }
-
-    @GetMapping(value = "/orders/{orderId}/demo", produces = CONTENT_TYPE)
-    @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Retrieve Order Demo", notes = "This is the retrieve order endpoint. More descriptions...", produces = CONTENT_TYPE)
-    @ApiResponses({
-            @ApiResponse(code = SC_NOT_FOUND, response = Errors.class, message = "Order not found"),
-            @ApiResponse(code = SC_BAD_REQUEST, response = Errors.class, message = "Invalid path parameters."),
-            @ApiResponse(code = SC_BAD_GATEWAY, response = Errors.class, message = "Error returned from downstream API."),
-            @ApiResponse(code = SC_SERVICE_UNAVAILABLE, response = Errors.class, message = "Unable to communicate with downstream API."),
-            @ApiResponse(code = SC_INTERNAL_SERVER_ERROR, response = Errors.class, message = "Internal server error.")
-    })
-    public ResponseWrapper<OrderDto> retrieveOrderDemo(@ApiParam(value = "Order ID", required = true)
-                                                   @Size(min = ORDER_ID_MIN_LENGTH, max = ORDER_ID_MAX_LENGTH, message = ORDER_ID_LENGTH_MESSAGE)
-                                                   @PathVariable String orderId) {
-        return orderTranslator.translate(orderServiceDemo.getOrder(orderId));
     }
 
 }

@@ -37,9 +37,9 @@ public class HystrixExecutor {
         return this;
     }
 
-    public <T> T execute(String serviceName, final Callable<T> command) {
+    public <T> T execute(String commandName, final Callable<T> command) {
         return new HystrixCommand<T>(withGroupKey(asKey(groupName))
-                .andCommandKey(HystrixCommandKey.Factory.asKey(serviceName))
+                .andCommandKey(HystrixCommandKey.Factory.asKey(commandName))
                 .andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey(poolName))
                 .andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.Setter().withCoreSize(coreSize))
                 .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()

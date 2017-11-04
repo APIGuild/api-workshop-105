@@ -14,8 +14,12 @@ public class RestTemplateExecutor {
         this.endpointProperties = endpointProperties;
     }
 
-    public <T> T execute(String serviceName, RestTemplateFunc<T> func) {
-        return hystrixExecutor.execute(serviceName, () -> func.execute(restTemplate));
+    public <T> T execute(String commandName, RestTemplateFunc<T> func) {
+        return hystrixExecutor.execute(commandName, () -> func.execute(restTemplate));
+    }
+
+    public <T> T getForEntity(String commandName, String url, Class<T> responseType) {
+        return hystrixExecutor.execute(commandName, () -> restTemplate.getForEntity(url, responseType)).getBody();
     }
 
     public RestEndpointProperties getEndpointProperties() {
