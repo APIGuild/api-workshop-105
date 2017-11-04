@@ -1,4 +1,41 @@
-# log monitoring and tracing
+# API Capability Building Workshop - API Logging, Monitoring and Tracing
+
+## Setup
+
+#### How to run the services
+
+Install plugin in IntelliJ IDEA: `lombok`
+
+```
+./gradlew :user-service:bootRun
+./gradlew :logistics-service:bootRun
+./gradlew :product-service:bootRun
+./gradlew :order-service:bootRun
+```
+
+Debug mode: --debug-jvm
+
+#### How to start continuous build
+```
+./gradlew build --continuous
+```
+
+#### Project structure and flow
+
+```
+├── README.md
+├── order-service
+├── user-service
+├── product-service
+└── logistics-service
+
+
+http://localhost:8080/order-service/orders/1234567890
+-> orderId -> Order User -> userId      -> User Service     
+                         -> productId   -> Product Service
+                         -> logisticsId -> Logistics Service
+
+```
 
 ## tracing
 
