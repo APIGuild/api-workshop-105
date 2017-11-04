@@ -3,4 +3,5 @@ include 'user-service'
 include 'logistics-service'
 include 'product-service'
 include 'order-service'
+include 'zipkin-server'
 

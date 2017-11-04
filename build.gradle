@@ -1,6 +1,7 @@
 buildscript {
     ext {
         springBootVersion = '1.5.8.RELEASE'
+        springCloudVersion = 'Camden.SR5'
     }
     repositories {
         mavenCentral()
@@ -32,6 +33,12 @@ subprojects {
 
     group = 'com.guild.api'
     version = '0.0.1-SNAPSHOT'
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
 }
 
 idea.project {

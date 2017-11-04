@@ -1,0 +1,10 @@
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('io.zipkin.java:zipkin-server')
+    runtime('io.zipkin.java:zipkin-autoconfigure-ui')
+//    compile('io.zipkin.java:zipkin-autoconfigure-storage-mysql:2.2.1')
+//    compile('org.springframework.boot:spring-boot-starter-jdbc')
+//    compile('mysql:mysql-connector-java:5.1.13')
+    runtime('org.springframework.boot:spring-boot-devtools')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}

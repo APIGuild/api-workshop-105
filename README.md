@@ -41,25 +41,32 @@ http://localhost:8080/order-service/orders/1234567890
 
 ### steps
 ### configure zipkin server:
- 1. add dependency: compile('io.zipkin.java:zipkin-server') 
-                   runtime('io.zipkin.java:zipkin-autoconfigure-ui')
- 2. add @EnableZipkinServer annotation
- 2. ./gradlew bootrun
- 3. check [zipkin dashboard](http://localhost:${port}/zipkin)
+ 1. add dependency for zipkin-server
+    ```
+    compile('io.zipkin.java:zipkin-server')
+    runtime('io.zipkin.java:zipkin-autoconfigure-ui')
+    ```
+    
+ 2. add `@EnableZipkinServer` annotation for ZipkinServerApplication
+ 2. run `./gradlew :zipkin-server:bootRun`
+ 3. check [zipkin dashboard](http://localhost:9411)
  
-### configure trace client(for both hello-api and user-api):
- 1. add dependency: compile('org.springframework.cloud:spring-cloud-starter-sleuth')
- 2. implement the resttemplate call from hello-api to user api
+### configure trace client(for both order-service, user-service, product-service and logistics-service):
+ 1. add dependency for each service
+    ```
+    compile('org.springframework.cloud:spring-cloud-starter-sleuth')
+    compile('org.springframework.cloud:spring-cloud-starter-zipkin')
+    ``` 
+ 2. run command ./gradlew cI idea, then start all services using ./gradlew :xxx-service:bootRun
  3. add log for http request(slf4j)
  4. start application check log
- 5. add dependency:compile('org.springframework.cloud:spring-cloud-starter-zipkin')
- 6. check [zipkin dashboard](http://localhost:${port}/zipkin)
+ 5. check [zipkin dashboard](http://localhost:9411)
  6. add sampler
- 7. check [zipkin dashboard](http://localhost:${port}/zipkin)
+ 7. check [zipkin dashboard](http://localhost:9411)
  
-### persistent the trace information(optional)
- 1. add dependency: compile group: 'io.zipkin.java', name: 'zipkin-autoconfigure-storage-mysql', version: '2.2.1'
-    add dependency: compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.13'
+### Optional: persistent the trace information
+ 1. add dependency: compile('io.zipkin.java:zipkin-autoconfigure-storage-mysql:2.2.1')
+    add dependency: compile('mysql:mysql-connector-java:5.1.13')
     add dependency: compile('org.springframework.boot:spring-boot-starter-jdbc')
  2. we choose to use mysql as dbms, create related database;
  3. add spring datasource configuration.(schema/username/password/url/driver-class-name...)
