@@ -2,23 +2,6 @@ server:
   port: 8080
   context-path: /order-service
 
-management:
-  security:
-    enabled: false
-endpoints:
-  health:
-    sensitive: false
-
-info:
-  app:
-    name: Order Service
-    protocol: http
-    description: This is the Order Service demo. GitHub: https://github.com/APIGuild/api-workshop-104
-  version: 1.0.0
-  contact:
-    author: API Guild
-    email: ***-api-guild@thoughtworks.com
-
 spring:
   application:
     name: order-service
@@ -26,6 +9,23 @@ spring:
     base-url: http://localhost:9411
 logging:
   path: ./build/log
+
+info:
+  app:
+    name: Order Service
+    protocol: http
+    description: 'This is the Order Service demo. GitHub: https://github.com/APIGuild/api-workshop-105'
+  version: 1.0.0
+  contact:
+    author: API Guild
+    email: '***-api-guild@thoughtworks.com'
+
+management:
+  security:
+    enabled: false
+endpoints:
+  health:
+    sensitive: false
 
 user:
   service:
@@ -35,7 +35,6 @@ user:
     password: password
     poolSize: 20
     timeout: 5000
-
 logistics:
   service:
     name: LogisticsService
@@ -44,7 +43,6 @@ logistics:
     password: password
     poolSize: 20
     timeout: 5000
-
 product:
   service:
     name: ProductService
