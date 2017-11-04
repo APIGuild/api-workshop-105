@@ -75,7 +75,7 @@ http://localhost:8080/order-service/orders/1234567890
 ## log monitoring
 
 ### steps
-### configure log
+### configure log for order-service and user-service
  1. add log output file
  2. start application, check if log file is generated
  3. add log appender to generate log(logback.xml)

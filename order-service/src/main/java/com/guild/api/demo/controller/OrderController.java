@@ -12,6 +12,8 @@ import static javax.servlet.http.HttpServletResponse.SC_SERVICE_UNAVAILABLE;
 
 import javax.validation.constraints.Size;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -23,6 +25,7 @@ import com.guild.api.demo.controller.dto.OrderDto;
 import com.guild.api.demo.controller.dto.ResponseWrapper;
 import com.guild.api.demo.controller.error.Errors;
 import com.guild.api.demo.controller.translator.OrderTranslator;
+import com.guild.api.demo.model.OrderModel;
 import com.guild.api.demo.service.OrderService;
 
 import io.swagger.annotations.Api;
@@ -35,6 +38,7 @@ import io.swagger.annotations.ApiResponses;
 @Api(tags = "Order Service", description = "Operations on Orders")
 @Validated
 public class OrderController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
 
     @Autowired
     private OrderService orderService;
@@ -55,7 +59,9 @@ public class OrderController {
     public ResponseWrapper<OrderDto> retrieveOrder(@ApiParam(value = "Order ID", required = true)
                                                    @Size(min = ORDER_ID_MIN_LENGTH, max = ORDER_ID_MAX_LENGTH, message = ORDER_ID_LENGTH_MESSAGE)
                                                    @PathVariable String orderId) {
-        return orderTranslator.translate(orderService.getOrder(orderId));
+        OrderModel orderModel = orderService.getOrder(orderId);
+        LOGGER.info(orderModel.toString());
+        return orderTranslator.translate(orderModel);
     }
 
 }
