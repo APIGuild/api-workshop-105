@@ -6,6 +6,7 @@
 ### configure zipkin server:
  1. add dependency: compile('io.zipkin.java:zipkin-server') 
                    runtime('io.zipkin.java:zipkin-autoconfigure-ui')
+ 2. add @EnableZipkinServer annotation
  2. ./gradlew bootrun
  3. check [zipkin dashboard](http://localhost:${port}/zipkin)
  
