@@ -5,13 +5,15 @@ server:
 spring:
   application:
     name: order-service
-  zipkin:
-    base-url: http://localhost:9411
-  sleuth:
-    sampler:
-      percentage: 1.0
-logging:
-  path: ./build/log
+# TODO: enable the Zipkin and Sleuth Sampler
+#  zipkin:
+#    base-url: http://localhost:9411
+#  sleuth:
+#    sampler:
+#      percentage: 1.0
+# TODO: config logging path
+#logging:
+#  path: ./build/log
 
 info:
   app:

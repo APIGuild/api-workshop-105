@@ -39,6 +39,10 @@ http://localhost:8080/order-service/orders/1234567890
 
 ## tracing
 
+You can access the two endpoints once you start the services:
+- [http://localhost:8080/order-service/orders/1234567890](http://localhost:8080/order-service/orders/1234567890)
+- [http://localhost:8080/order-service/orders/1234567890/sync](http://localhost:8080/order-service/orders/1234567890/sync)
+
 ### steps
 ### configure zipkin server:
  1. add dependency for zipkin-server
@@ -78,7 +82,27 @@ http://localhost:8080/order-service/orders/1234567890
 ### configure log for order-service and user-service
  1. add log output file
  2. start application, check if log file is generated
- 3. add log appender to generate log(logback.xml)
+ 3. add log appender to generate log(create a file named logback.xml under resource directory)
+ ``` logback.xml
+ <configuration>
+     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+         <file>build/log/application.log</file>
+         <encoder>
+             <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+         </encoder>
+     </appender>
+     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+         <encoder>
+             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+         </encoder>
+     </appender>
+ 
+     <root level="info">
+         <appender-ref ref="FILE" />
+         <appender-ref ref="STDOUT" />
+     </root>
+ </configuration>
+ ```
  
 ### configure splunk forwarder
  1. Configure Forwarder connection to Index Server: ./splunk add forward-server hostname.domain:9997
