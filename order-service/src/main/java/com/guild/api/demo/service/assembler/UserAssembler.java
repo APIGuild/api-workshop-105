@@ -5,11 +5,11 @@ import com.guild.api.demo.model.UserModel;
 import com.guild.api.demo.service.model.OrderContainer;
 import com.guild.api.demo.util.rxjava.AsyncResult;
 
-import io.reactivex.functions.BiFunction;
+import rx.functions.Func2;
 
-public class UserAssembler implements BiFunction<OrderContainer, AsyncResult<UserModel>, OrderContainer> {
+public class UserAssembler implements Func2<OrderContainer, AsyncResult<UserModel>, OrderContainer> {
     @Override
-    public OrderContainer apply(OrderContainer orderContainer, AsyncResult<UserModel> userModel) throws Exception {
+    public OrderContainer call(OrderContainer orderContainer, AsyncResult<UserModel> userModel) {
         if (userModel.hasException()) {
             orderContainer.addErrors(ErrorBuilder.buildServiceError(userModel.getException().getMessage()));
         } else {

@@ -15,7 +15,7 @@ public class LogisticsDao {
     private static final String RETRIEVE_LOGISTICS_KEY = "retrieveLogistics";
 
     @Autowired
-    @Qualifier("logisticsServiceTemplate")
+    @Qualifier("logisticsServiceTemplateExecutor")
     private RestTemplateExecutor restTemplateExecutor;
 
     public LogisticsModel getLogistics(String logisticsId) throws DaoException {

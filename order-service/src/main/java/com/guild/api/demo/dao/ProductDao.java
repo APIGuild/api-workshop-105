@@ -15,7 +15,7 @@ public class ProductDao {
     private static final String RETRIEVE_PRODUCT_KEY = "retrieveProduct";
 
     @Autowired
-    @Qualifier("productServiceTemplate")
+    @Qualifier("productServiceTemplateExecutor")
     private RestTemplateExecutor restTemplateExecutor;
 
     public ProductModel getProduct(String productId) throws DaoException {

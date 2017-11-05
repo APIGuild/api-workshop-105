@@ -61,7 +61,7 @@ http://localhost:8080/order-service/orders/1234567890
  3. add log for http request(slf4j)
  4. start application check log
  5. check [zipkin dashboard](http://localhost:9411)
- 6. add sampler
+ 6. add sampler properties sleuth.sampler.percentage=0.2
  7. check [zipkin dashboard](http://localhost:9411)
  
 ### Optional: persistent the trace information

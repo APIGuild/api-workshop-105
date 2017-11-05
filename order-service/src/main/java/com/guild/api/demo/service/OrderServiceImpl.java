@@ -1,5 +1,6 @@
 package com.guild.api.demo.service;
 
+import static com.guild.api.demo.controller.error.ErrorBuilder.buildServiceError;
 import static com.guild.api.demo.util.rxjava.AsyncTemplate.async;
 import static java.lang.String.format;
 import static java.util.Optional.ofNullable;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.guild.api.demo.dao.LogisticsDao;
 import com.guild.api.demo.dao.ProductDao;
 import com.guild.api.demo.dao.UserDao;
+import com.guild.api.demo.dao.exception.DaoException;
 import com.guild.api.demo.exception.ResourceNotFoundException;
 import com.guild.api.demo.model.LogisticsModel;
 import com.guild.api.demo.model.OrderModel;
@@ -24,9 +26,8 @@ import com.guild.api.demo.service.mapper.OrderModelMapper;
 import com.guild.api.demo.service.model.OrderContainer;
 import com.guild.api.demo.util.rxjava.AsyncResult;
 
-import io.reactivex.Single;
-import io.reactivex.schedulers.Schedulers;
-
+import rx.Single;
+import rx.schedulers.Schedulers;
 
 @Service(value = "orderService")
 public class OrderServiceImpl implements OrderService {
@@ -71,7 +72,7 @@ public class OrderServiceImpl implements OrderService {
                 .zipWith(productStream, new ProductAssembler())
                 .subscribeOn(Schedulers.io());
 
-        return orderContainer.blockingGet();
+        return orderContainer.toBlocking().value();
     }
 
 }

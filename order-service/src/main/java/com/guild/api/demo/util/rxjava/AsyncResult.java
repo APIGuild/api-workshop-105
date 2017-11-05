@@ -17,10 +17,7 @@ public final class AsyncResult<V> {
         return new AsyncResult<>(null, exception);
     }
 
-    public V getValue() throws Exception {
-        if (exception != null) {
-            throw exception;
-        }
+    public V getValue() {
         return value;
     }
 

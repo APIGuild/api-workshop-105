@@ -15,7 +15,7 @@ public class UserDao {
     private static final String RETRIEVE_USER_KEY = "retrieveUser";
 
     @Autowired
-    @Qualifier("userServiceTemplate")
+    @Qualifier("userServiceTemplateExecutor")
     private RestTemplateExecutor restTemplateExecutor;
 
     public UserModel getUser(String userId) throws DaoException {

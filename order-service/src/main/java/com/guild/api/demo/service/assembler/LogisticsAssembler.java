@@ -6,11 +6,11 @@ import com.guild.api.demo.model.LogisticsModel;
 import com.guild.api.demo.service.model.OrderContainer;
 import com.guild.api.demo.util.rxjava.AsyncResult;
 
-import io.reactivex.functions.BiFunction;
+import rx.functions.Func2;
 
-public class LogisticsAssembler implements BiFunction<OrderContainer, AsyncResult<LogisticsModel>, OrderContainer> {
+public class LogisticsAssembler implements Func2<OrderContainer, AsyncResult<LogisticsModel>, OrderContainer> {
     @Override
-    public OrderContainer apply(OrderContainer orderContainer, AsyncResult<LogisticsModel> logisticsModel) throws Exception {
+    public OrderContainer call(OrderContainer orderContainer, AsyncResult<LogisticsModel> logisticsModel) {
         if (logisticsModel.hasException()) {
             orderContainer.addErrors(ErrorBuilder.buildServiceError(logisticsModel.getException().getMessage()));
         } else {

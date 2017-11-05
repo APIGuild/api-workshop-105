@@ -2,13 +2,13 @@ package com.guild.api.demo.util.rxjava;
 
 import java.util.concurrent.Callable;
 
-import io.reactivex.Single;
-import io.reactivex.SingleEmitter;
-import io.reactivex.schedulers.Schedulers;
+import rx.Single;
+import rx.SingleSubscriber;
+import rx.schedulers.Schedulers;
 
 public final class AsyncTemplate {
     public static <T> Single<AsyncResult<T>> async(Callable<T> callable) {
-        return Single.create((SingleEmitter<AsyncResult<T>> singleEmitter) -> {
+        return Single.create((SingleSubscriber<? super AsyncResult<T>> subscriber) -> {
             AsyncResult<T> asyncResult;
             try {
                 T syncResult = callable.call();
@@ -16,7 +16,7 @@ public final class AsyncTemplate {
             } catch (Exception exception) {
                 asyncResult = AsyncResult.failed(exception);
             }
-            singleEmitter.onSuccess(asyncResult);
+            subscriber.onSuccess(asyncResult);
         }).subscribeOn(Schedulers.io());
     }
 }

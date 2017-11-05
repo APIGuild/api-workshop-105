@@ -15,17 +15,7 @@ import com.guild.api.demo.util.hystrix.HystrixExecutor;
 public class PooledRestTemplateBuilder {
     private static final int DEFAULT_CONNECTION_TIME_OUT = 2000;
 
-    private RestEndpointProperties endpointProperties;
-
-    public PooledRestTemplateBuilder(RestEndpointProperties endpointProperties) {
-        this.endpointProperties = endpointProperties;
-    }
-
-    public RestTemplateExecutor build() {
-        return new RestTemplateExecutor(buildRestTemplate(), buildHystrixExecutor(), endpointProperties);
-    }
-
-    private RestTemplate buildRestTemplate() {
+    public static RestTemplate buildResTemplate(RestEndpointProperties endpointProperties) {
         ClientHttpRequestFactory requestFactory = buildRequestFactory(
                 endpointProperties.isReuseConnection(),
                 endpointProperties.getUsername(),
@@ -37,13 +27,13 @@ public class PooledRestTemplateBuilder {
         return new RestTemplate(requestFactory);
     }
 
-    private HystrixExecutor buildHystrixExecutor() {
+    public static HystrixExecutor buildHystrixExecutor(RestEndpointProperties endpointProperties) {
         return new HystrixExecutor(endpointProperties.getName())
                 .withThreadPool(endpointProperties.getName(), endpointProperties.getPoolSize())
                 .withTimeout(endpointProperties.getTimeout());
     }
 
-    private ClientHttpRequestFactory buildRequestFactory(boolean reuseConnection, String username, String password, int threadPoolSize, int readTimeout) {
+    private static ClientHttpRequestFactory buildRequestFactory(boolean reuseConnection, String username, String password, int threadPoolSize, int readTimeout) {
         RequestConfig requestConfig = RequestConfig.custom()
                 .setConnectTimeout(DEFAULT_CONNECTION_TIME_OUT)
                 .setSocketTimeout(readTimeout)
