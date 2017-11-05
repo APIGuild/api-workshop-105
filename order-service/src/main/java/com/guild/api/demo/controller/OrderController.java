@@ -63,7 +63,7 @@ public class OrderController {
                                                    @Size(min = ORDER_ID_MIN_LENGTH, max = ORDER_ID_MAX_LENGTH, message = ORDER_ID_LENGTH_MESSAGE)
                                                    @PathVariable String orderId) {
         OrderModel orderModel = orderService.getOrder(orderId);
-        LOGGER.info(orderModel.toString());
+//        LOGGER.info(orderModel.toString());
         return orderTranslator.translate(orderModel);
     }
 
