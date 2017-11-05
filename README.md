@@ -103,6 +103,12 @@ You can access the two endpoints once you start the services:
      </root>
  </configuration>
  ```
+### use interceptor for logging
+ 1. create LoggingInterceptor class implement the HandlerInterceptor interface
+ 2. override the prehandler behavior
+ 3. create a log configuration class extends from WebMvcConfigureAdapter
+ 4. override the addInterceptors method, register the LoggingInterceptor to the InterceptorRegistry 
+ 5. restart the server and check the log.
  
 ### configure splunk forwarder
  1. Configure Forwarder connection to Index Server: ./splunk add forward-server hostname.domain:9997
