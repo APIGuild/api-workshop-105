@@ -111,7 +111,7 @@ You can access the two endpoints once you start the services:
  5. restart the server and check the log.
  
 ### configure splunk forwarder
- 1. Configure Forwarder connection to Index Server: ./SplunkForwarder/bin/splunk add forward-server hostname.domain:9997
+ 1. Configure Forwarder connection to Index Server: ./SplunkForwarder/bin/splunk add forward-server localhost:9997
  2. restart the forwarder: ./SplunkForwarder/bin/splunk restart
  3. go to splunk dashboard(default port:8000), enable the 9997 port of the indexer(setting->forwarding & receiving->receive data add new)
  4. check if the forwarder and server's connection is good: ./SplunkForwarder/bin/splunk list forward-server
