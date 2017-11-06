@@ -42,6 +42,6 @@ public class PerformanceLogInterceptor {
         MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
         String serviceName = signature.getDeclaringType().getSimpleName();
         String operationName = signature.getName();
-        LOGGER.info(format("----------%1$s|%2$s|%3$s|%4$s|%5$s ms", applicationName, serviceName, operationName, result, stopWatch.getTotalTimeMillis()));
+        LOGGER.info(format("============>> %1$s|%2$s|%3$s|%4$s|%5$s ms", applicationName, serviceName, operationName, result, stopWatch.getTotalTimeMillis()));
     }
 }

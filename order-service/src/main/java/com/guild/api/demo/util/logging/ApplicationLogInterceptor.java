@@ -20,12 +20,12 @@ import com.google.common.base.Joiner;
 public class ApplicationLogInterceptor {
     @Before("@annotation(com.guild.api.demo.util.logging.ApplicationLog)")
     public void logInvocation(JoinPoint joinPoint) {
-        getLogger(joinPoint).info(format("----------Invoking %s(%s)", getMethod(joinPoint).getName(), getArguments(joinPoint)));
+        getLogger(joinPoint).info(format("============>> Invoking %s(%s)", getMethod(joinPoint).getName(), getArguments(joinPoint)));
     }
 
     @AfterReturning(pointcut = "@annotation(com.guild.api.demo.util.logging.ApplicationLog)", returning = "returning")
     public void logReturning(JoinPoint joinPoint, Object returning) {
-        getLogger(joinPoint).info(format("----------Completed %s, returned %s", getMethod(joinPoint).getName(), returning));
+        getLogger(joinPoint).info(format("============>> Completed %s, returned %s", getMethod(joinPoint).getName(), returning));
     }
 
     @AfterThrowing(pointcut = "@annotation(com.guild.api.demo.util.logging.ApplicationLog)", throwing = "exception")
