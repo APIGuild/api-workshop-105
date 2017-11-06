@@ -39,6 +39,10 @@ http://localhost:8080/order-service/orders/1234567890
 
 ## tracing
 
+You can access the two endpoints once you start the services:
+- [http://localhost:8080/order-service/orders/1234567890](http://localhost:8080/order-service/orders/1234567890)
+- [http://localhost:8080/order-service/orders/1234567890/sync](http://localhost:8080/order-service/orders/1234567890/sync)
+
 ### steps
 ### configure zipkin server:
  1. add dependency for zipkin-server
@@ -75,19 +79,45 @@ http://localhost:8080/order-service/orders/1234567890
 ## log monitoring
 
 ### steps
-### configure log for order-service and user-service
+### configure log for order-service
  1. add log output file
  2. start application, check if log file is generated
- 3. add log appender to generate log(logback.xml)
+ 3. add log appender to generate log(create a file named logback.xml under resource directory)
+ ``` logback.xml
+ <configuration>
+     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+         <file>build/log/application.log</file>
+         <encoder>
+             <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+         </encoder>
+     </appender>
+     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+         <encoder>
+             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+         </encoder>
+     </appender>
+ 
+     <root level="info">
+         <appender-ref ref="FILE" />
+         <appender-ref ref="STDOUT" />
+     </root>
+ </configuration>
+ ```
+### use interceptor for logging
+ 1. create LoggingInterceptor class implement the HandlerInterceptor interface
+ 2. override the prehandler behavior
+ 3. create a log configuration class extends from WebMvcConfigureAdapter
+ 4. override the addInterceptors method, register the LoggingInterceptor to the InterceptorRegistry 
+ 5. restart the server and check the log.
  
 ### configure splunk forwarder
- 1. Configure Forwarder connection to Index Server: ./splunk add forward-server hostname.domain:9997
- 2. restart the forwarder
- 3. go to splunk dashboard, enable the 9997 port of the indexer(setting->forwarding & receiving->receive data add new)
- 4. check if the forwarder and server's connection is good: ./splunk list forward-server
+ 1. Configure Forwarder connection to Index Server: ./SplunkForwarder/bin/splunk add forward-server localhost:9997
+ 2. restart the forwarder: ./SplunkForwarder/bin/splunk restart
+ 3. go to splunk dashboard(default port:8000), enable the 9997 port of the indexer(setting->forwarding & receiving->receive data add new)
+ 4. check if the forwarder and server's connection is good: ./SplunkForwarder/bin/splunk list forward-server
  5. search index=_internal in plunk, check the log
- 6. add monitor for our log file: ./splunk add monitor /path/to/app/logs/ -index ${index} -sourcetype ${sourcetype}
+ 6. add monitor for our api log: ./SplunkForwarder/bin/splunk add monitor /path/to/app/logs/ -index ${index} -sourcetype ${sourcetype}
  7. restart the forwarder
- 8. add index for server(settings->indexes->new index)
+ 8. add index for server in splunk dashboard(settings->indexes->new index)
  9. call our api
  10. search our index in splunk, check the log.
