@@ -12,6 +12,8 @@ spring:
       percentage: 1.0
 logging:
   path: ./build/log
+  level:
+    root: INFO
 
 info:
   app:

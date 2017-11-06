@@ -12,8 +12,6 @@ import static javax.servlet.http.HttpServletResponse.SC_SERVICE_UNAVAILABLE;
 
 import javax.validation.constraints.Size;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -27,6 +25,8 @@ import com.guild.api.demo.controller.error.Errors;
 import com.guild.api.demo.controller.translator.OrderTranslator;
 import com.guild.api.demo.model.OrderModel;
 import com.guild.api.demo.service.OrderService;
+import com.guild.api.demo.util.logging.ApplicationLog;
+import com.guild.api.demo.util.logging.PerformanceLog;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,7 +38,7 @@ import io.swagger.annotations.ApiResponses;
 @Api(tags = "Order Service", description = "Operations on Orders")
 @Validated
 public class OrderController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
+//    private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
 
     @Autowired
     private OrderService orderService;
@@ -49,6 +49,8 @@ public class OrderController {
     @Autowired
     private OrderTranslator orderTranslator;
 
+    @ApplicationLog
+    @PerformanceLog
     @GetMapping(value = "/orders/{orderId}", produces = CONTENT_TYPE)
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Retrieve Order", notes = "This is the retrieve order endpoint. More descriptions...", produces = CONTENT_TYPE)
@@ -67,6 +69,8 @@ public class OrderController {
         return orderTranslator.translate(orderModel);
     }
 
+    @ApplicationLog
+    @PerformanceLog
     @GetMapping(value = "/orders/{orderId}/sync", produces = CONTENT_TYPE)
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Retrieve Order Demo", notes = "This is the retrieve order endpoint. More descriptions...", produces = CONTENT_TYPE)

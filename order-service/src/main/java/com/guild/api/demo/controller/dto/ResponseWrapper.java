@@ -1,9 +1,9 @@
 package com.guild.api.demo.controller.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 @AllArgsConstructor
 public class ResponseWrapper<T> {
     private ResourceDto<T> data;

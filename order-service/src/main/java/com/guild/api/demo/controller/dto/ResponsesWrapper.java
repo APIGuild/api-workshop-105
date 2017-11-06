@@ -3,9 +3,9 @@ package com.guild.api.demo.controller.dto;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 @AllArgsConstructor
 public class ResponsesWrapper<T> {
     private List<ResourceDto<T>> data;

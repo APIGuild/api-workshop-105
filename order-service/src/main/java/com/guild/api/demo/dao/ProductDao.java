@@ -7,6 +7,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.guild.api.demo.dao.exception.DaoException;
 import com.guild.api.demo.dao.exception.DaoExceptionBuilder;
 import com.guild.api.demo.model.ProductModel;
+import com.guild.api.demo.util.logging.PerformanceLog;
 import com.guild.api.demo.util.rest.RestTemplateExecutor;
 
 @Component
@@ -18,6 +19,7 @@ public class ProductDao {
     @Qualifier("productServiceTemplateExecutor")
     private RestTemplateExecutor restTemplateExecutor;
 
+    @PerformanceLog
     public ProductModel getProduct(String productId) throws DaoException {
         String url = UriComponentsBuilder.fromPath(RETRIEVE_PRODUCT_URL)
                 .buildAndExpand(restTemplateExecutor.getEndpointProperties().getBaseUrl(), productId).toString();
