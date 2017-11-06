@@ -79,7 +79,7 @@ You can access the two endpoints once you start the services:
 ## log monitoring
 
 ### steps
-### configure log for order-service and user-service
+### configure log for order-service
  1. add log output file
  2. start application, check if log file is generated
  3. add log appender to generate log(create a file named logback.xml under resource directory)
@@ -111,13 +111,13 @@ You can access the two endpoints once you start the services:
  5. restart the server and check the log.
  
 ### configure splunk forwarder
- 1. Configure Forwarder connection to Index Server: ./splunk add forward-server hostname.domain:9997
- 2. restart the forwarder
- 3. go to splunk dashboard, enable the 9997 port of the indexer(setting->forwarding & receiving->receive data add new)
- 4. check if the forwarder and server's connection is good: ./splunk list forward-server
+ 1. Configure Forwarder connection to Index Server: ./SplunkForwarder/bin/splunk add forward-server hostname.domain:9997
+ 2. restart the forwarder: ./SplunkForwarder/bin/splunk restart
+ 3. go to splunk dashboard(default port:8000), enable the 9997 port of the indexer(setting->forwarding & receiving->receive data add new)
+ 4. check if the forwarder and server's connection is good: ./SplunkForwarder/bin/splunk list forward-server
  5. search index=_internal in plunk, check the log
- 6. add monitor for our log file: ./splunk add monitor /path/to/app/logs/ -index ${index} -sourcetype ${sourcetype}
+ 6. add monitor for our api log: ./SplunkForwarder/bin/splunk add monitor /path/to/app/logs/ -index ${index} -sourcetype ${sourcetype}
  7. restart the forwarder
- 8. add index for server(settings->indexes->new index)
+ 8. add index for server in splunk dashboard(settings->indexes->new index)
  9. call our api
  10. search our index in splunk, check the log.
