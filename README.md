@@ -103,7 +103,7 @@ You can access the two endpoints once you start the services:
      </root>
  </configuration>
  ```
-### use interceptor for logging
+### other way for logging(optional)
  1. create LoggingInterceptor class implement the HandlerInterceptor interface
  2. override the prehandler behavior
  3. create a log configuration class extends from WebMvcConfigureAdapter
